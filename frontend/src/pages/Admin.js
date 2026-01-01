@@ -235,7 +235,7 @@ const Admin = () => {
                   <td style={{ padding: '10px', border: '1px solid #ddd' }}>
                     {editingProduct === product.id ? (
                       <input type="number" defaultValue={product.price} onBlur={(e) => updateProduct(product.id, {...product, price: e.target.value})} />
-                    ) : `₦{product.price}`}
+                    ) : `&#8358;${product.price}`}
                   </td>
                   <td style={{ padding: '10px', border: '1px solid #ddd', color: product.stock < 10 ? 'red' : 'black' }}>
                     {editingProduct === product.id ? (
@@ -389,7 +389,7 @@ const Admin = () => {
               <h3>Inventory Status</h3>
               <p>Total Products: {products.length}</p>
               <p>Low Stock Items: {lowStockProducts.length}</p>
-              <p>Total Stock Value: ₦{products.reduce((sum, p) => sum + (p.price * p.stock), 0).toFixed(2)}</p>
+              <p>Total Stock Value: &#8358;{products.reduce((sum, p) => sum + (p.price * p.stock), 0).toFixed(2)}</p>
             </div>
           </div>
         </div>

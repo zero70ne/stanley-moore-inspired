@@ -131,7 +131,7 @@ function Home() {
                     <h3>{product.name}</h3>
                     <WishlistButton product={product} />
                   </div>
-                  <p className="price">₦{product.price}</p>
+                  <p className="price">&#8358;{product.price}</p>
                   <p className="description">{product.description}</p>
                   <button type="button" className="add-to-cart-quick">Quick Add</button>
                 </div>

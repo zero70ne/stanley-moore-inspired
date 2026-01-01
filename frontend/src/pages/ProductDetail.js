@@ -67,7 +67,7 @@ function ProductDetail() {
         </div>
         <div className="product-info-detail">
           <h1>{product.name}</h1>
-          <p className="price-large">₦{product.price}</p>
+          <p className="price-large">&#8358;{product.price}</p>
           <p className="description">{product.description}</p>
           <div className="product-options">
             <div>

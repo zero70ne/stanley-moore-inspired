@@ -252,7 +252,7 @@ function Checkout() {
                   <h4>{item.name}</h4>
                   <p style={{ color: '#666', fontSize: '0.9rem' }}>{t('qty')} {item.quantity}</p>
                 </div>
-                <span>₦{(item.price * item.quantity).toFixed(2)}</span>
+                <span>&#8358;{(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
             

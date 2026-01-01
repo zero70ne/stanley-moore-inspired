@@ -78,7 +78,7 @@ const Wishlist = () => {
                     fontWeight: '600', 
                     color: '#8B7355' 
                   }}>
-                    ₦{product.price}
+                    &#8358;{product.price}
                   </p>
                   
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
