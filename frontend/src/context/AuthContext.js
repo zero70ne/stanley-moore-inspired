@@ -18,9 +18,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const result = await apiService.login(email, password);
-      setUser(result.user);
-      localStorage.setItem('user', JSON.stringify(result.user));
+      // Temporary mock login for demo purposes
+      if (!email || !password) {
+        throw new Error('Email and password are required');
+      }
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock user
+      const mockUser = {
+        id: Date.now(),
+        name: 'Demo User',
+        email,
+        role: 'user'
+      };
+      
+      setUser(mockUser);
+      localStorage.setItem('user', JSON.stringify(mockUser));
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
@@ -29,9 +44,24 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (name, email, password) => {
     try {
-      const result = await apiService.register(name, email, password);
-      setUser(result.user);
-      localStorage.setItem('user', JSON.stringify(result.user));
+      // Temporary mock signup for demo purposes
+      if (!name || !email || !password) {
+        throw new Error('All fields are required');
+      }
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock user
+      const mockUser = {
+        id: Date.now(),
+        name,
+        email,
+        role: 'user'
+      };
+      
+      setUser(mockUser);
+      localStorage.setItem('user', JSON.stringify(mockUser));
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
