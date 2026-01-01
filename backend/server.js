@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { paystackService } = require('./services/paymentService');
 const connectDB = require('./config/database');
 const User = require('./models/User');
 const Product = require('./models/Product');
@@ -332,18 +332,43 @@ app.get('/api/admin/users', authenticateToken, isAdmin, async (req, res) => {
   }
 });
 
-// Payment routes
-app.post('/api/payment/create-intent', authenticateToken, async (req, res) => {
+// Payment routes - Paystack
+app.post('/api/payment/initialize', authenticateToken, async (req, res) => {
   try {
-    const { amount, currency = 'usd' } = req.body;
+    const { amount, currency = 'NGN' } = req.body;
+    const user = await User.findById(req.user.id);
     
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount * 100), // Convert to cents
-      currency,
-      metadata: { userId: req.user.id }
+    const payment = await paystackService.initializePayment(
+      user.email,
+      amount,
+      currency
+    );
+    
+    res.json({
+      authorization_url: payment.authorization_url,
+      access_code: payment.access_code,
+      reference: payment.reference
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/payment/verify', authenticateToken, async (req, res) => {
+  try {
+    const { reference } = req.body;
     
-    res.json({ clientSecret: paymentIntent.client_secret });
+    const verification = await paystackService.verifyPayment(reference);
+    
+    if (verification.status === 'success') {
+      res.json({ 
+        success: true, 
+        amount: verification.amount / 100, // Convert from kobo
+        reference: verification.reference 
+      });
+    } else {
+      res.status(400).json({ error: 'Payment verification failed' });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -351,13 +376,14 @@ app.post('/api/payment/create-intent', authenticateToken, async (req, res) => {
 
 app.post('/api/orders', authenticateToken, async (req, res) => {
   try {
-    const { items, total, paymentIntentId } = req.body;
+    const { items, total, paystackReference } = req.body;
     
     const order = await Order.create({
       userId: req.user.id,
       items,
       total,
-      paymentIntentId,
+      paymentIntentId: paystackReference,
+      paymentMethod: 'paystack',
       status: 'confirmed'
     });
     
@@ -382,10 +408,12 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🎯 STANLEY MOORE INSPIRED Server running on http://localhost:${PORT}`);
+  console.log('💳 Payment Method: Paystack (Nigeria)');
   console.log('📊 Available endpoints:');
   console.log('  - GET /api/products');
   console.log('  - POST /api/auth/login');
   console.log('  - POST /api/auth/register');
-  console.log('  - POST /api/payment/create-intent');
+  console.log('  - POST /api/payment/initialize');
+  console.log('  - POST /api/payment/verify');
   console.log('  - GET /api/admin/* (admin only)');
 });

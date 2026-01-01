@@ -129,9 +129,9 @@ function Home() {
                 <div className="product-info-enhanced">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <h3>{product.name}</h3>
-                    <WishlistButton productId={product.id} productName={product.name} />
+                    <WishlistButton product={product} />
                   </div>
-                  <p className="price">${product.price}</p>
+                  <p className="price">₦{product.price}</p>
                   <p className="description">{product.description}</p>
                   <button type="button" className="add-to-cart-quick">Quick Add</button>
                 </div>

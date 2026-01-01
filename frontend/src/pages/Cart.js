@@ -63,7 +63,7 @@ function Cart() {
             
             <div>
               <h3>{item.name}</h3>
-              <p style={{ color: '#666' }}>${item.price}</p>
+              <p style={{ color: '#666' }}>₦{item.price}</p>
             </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

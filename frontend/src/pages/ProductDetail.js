@@ -67,7 +67,7 @@ function ProductDetail() {
         </div>
         <div className="product-info-detail">
           <h1>{product.name}</h1>
-          <p className="price-large">${product.price}</p>
+          <p className="price-large">₦{product.price}</p>
           <p className="description">{product.description}</p>
           <div className="product-options">
             <div>
@@ -82,7 +82,7 @@ function ProductDetail() {
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
             <SizeGuide />
-            <WishlistButton productId={product.id} productName={product.name} />
+            <WishlistButton product={product} />
           </div>
           <button type="button" className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
           <ProductReviews productId={product.id} />

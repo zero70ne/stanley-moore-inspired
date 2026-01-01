@@ -4,6 +4,12 @@ import { useWishlist } from '../context/WishlistContext';
 
 function WishlistButton({ product }) {
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  
+  // Safety check - return null if product is not provided
+  if (!product) {
+    return null;
+  }
+  
   const inWishlist = isInWishlist(product.id || product._id);
 
   const handleWishlist = () => {

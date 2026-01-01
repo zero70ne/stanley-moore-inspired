@@ -106,7 +106,7 @@ const OrderHistory = () => {
                       padding: '0.5rem 0'
                     }}>
                       <span>{item.productId?.name || 'Product'} x {item.quantity}</span>
-                      <span>${(item.price * item.quantity).toFixed(2)}</span>
+                      <span>₦{(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                   ))}
                 </div>

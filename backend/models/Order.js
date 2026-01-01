@@ -16,6 +16,10 @@ const orderSchema = new mongoose.Schema({
     default: 'pending' 
   },
   paymentIntentId: String,
+  paymentMethod: { 
+    type: String, 
+    default: 'paystack' 
+  },
   shippingAddress: {
     name: String,
     address: String,

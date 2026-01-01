@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 class ApiService {
   constructor() {
@@ -154,13 +154,7 @@ class ApiService {
     return this.request('/admin/users');
   }
 
-  // Payment
-  async createPaymentIntent(amount) {
-    return this.request('/payment/create-intent', {
-      method: 'POST',
-      body: { amount }
-    });
-  }
+  // Payment - Paystack methods are handled in payment.js service
 
   // Orders
   async createOrder(orderData) {
