@@ -43,7 +43,6 @@ function Checkout() {
     cvv: ''
   });
   
-  // const [processing, setProcessing] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -54,14 +53,12 @@ function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setProcessing(true);
     
     // Simulate payment processing
     setTimeout(() => {
       alert('Payment successful! Order confirmed.');
       clearCart();
       navigate('/');
-      setProcessing(false);
     }, 2000);
   };
 

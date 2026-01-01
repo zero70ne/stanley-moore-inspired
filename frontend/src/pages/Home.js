@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Newsletter from '../components/Newsletter';
-// import LoadingSpinner from '../components/LoadingSpinner';
 import WishlistButton from '../components/WishlistButton';
 
 function Home() {
