@@ -43,7 +43,7 @@ function Checkout() {
     cvv: ''
   });
   
-  const [processing, setProcessing] = useState(false);
+  // const [processing, setProcessing] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
