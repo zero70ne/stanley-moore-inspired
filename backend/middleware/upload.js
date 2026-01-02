@@ -1,5 +1,4 @@
 const multer = require('multer');
-const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
@@ -22,10 +21,8 @@ const upload = multer({
 const processImage = async (buffer, filename) => {
   const outputPath = path.join(__dirname, '../uploads/products', filename);
   
-  await sharp(buffer)
-    .resize(800, 600, { fit: 'inside', withoutEnlargement: true })
-    .jpeg({ quality: 85 })
-    .toFile(outputPath);
+  // Simple file write without Sharp processing for deployment
+  fs.writeFileSync(outputPath, buffer);
     
   return `/uploads/products/${filename}`;
 };
